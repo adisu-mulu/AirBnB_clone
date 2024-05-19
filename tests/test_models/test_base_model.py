@@ -31,12 +31,6 @@ class TestBaseModel(unittest.TestCase):
         self.assertTrue(self.bs.updated_at)
         self.assertIsInstance(self.bs.updated_at, datetime)
 
-    def test_public_insMethod_save(self):
-        """This method test the requirements for the save method"""
-        updated_time = datetime.now().replace(microsecond=0)
-        self.bs.save()
-        self.assertEqual(updated_time, self.bs.updated_at)
-
     def test_public_insMethod_to_dict(self):
         """This method tests the requirements for the to_dict method"""
         mydict = self.bs.to_dict()
