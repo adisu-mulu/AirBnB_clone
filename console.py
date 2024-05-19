@@ -2,6 +2,8 @@
 """This module defines the command line interpreter"""
 import cmd
 import sys
+from models.base_model import BaseModel
+from models.engine.file_storage import FileStorage
 
 
 class HBNBCommand(cmd.Cmd):
@@ -27,6 +29,41 @@ class HBNBCommand(cmd.Cmd):
     def do_quit(self, arg):
         """Exits the command line interpreter."""
         return True
+
+    def do_create(self, arg):
+        if len(arg) < 1:
+            print("** class name missing **")
+        else:
+            arg = arg.split()
+            if arg[0] == 'BaseModel':
+                bs = BaseModel()
+                bs.save()
+                print(bs.id)
+            else:
+                print("** class doesn't exist **")
+
+    def do_show(self, arg):
+        arg = arg.split()
+        obj_name = arg[0] + '.' + arg[1]
+        if obj_name in FileStorage()._FileStorage__objects:
+            print(FileStorage()._FileStorage__objects[obj_name])
+        else:
+            print("** no instance found **")
+
+    def do_destroy(self, arg):
+        arg = arg.split()
+        obj_name = arg[0] + '.' + arg[1]
+        del FileStorage()._FileStorage__objects[obj_name]
+        BaseModel().save()
+
+    def do_all(self, arg):
+        if FileStorage()._FileStorage__objects:
+            obj_list = []
+            for objs in FileStorage()._FileStorage__objects.values():
+                obj_list.append(str(objs))
+            print(obj_list)
+        else:
+            print("** class doesn't exist **")
 
     def do_EOF(self, arg):
         """Also exits the command line interpreter"""
