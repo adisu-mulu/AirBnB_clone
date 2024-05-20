@@ -2,6 +2,7 @@
 """This module defines the command line interpreter"""
 import cmd
 import sys
+import shlex
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
 
@@ -91,6 +92,34 @@ class HBNBCommand(cmd.Cmd):
             print(obj_list)
         else:
             print("** class doesn't exist **")
+
+    def do_update(self, arg):
+        """Updates an instance with new attribute"""
+        if len(arg) < 1:
+            print("** class name missing **")
+        else:
+            args = shlex.split(arg)
+            if not any(args[0] == mylist.__class__.__name__ for key, mylist in
+                       FileStorage()._FileStorage__objects.items()):
+                print("** class doesn't exist **")
+            else:
+                if len(args) < 2:
+                    print(" ** instance id is missing **")
+                else:
+                    obj_name = args[0] + '.' + args[1]
+                    if obj_name in FileStorage()._FileStorage__objects:
+                        if len(args) < 3:
+                            print("** attribute name missing **")
+                        elif len(args) < 4:
+                            print("** value missing **")
+                        else:
+                            temp = FileStorage()._FileStorage__objects
+                            for k, v in temp.items():
+                                if v.id == args[1]:
+                                    setattr(v, args[2], args[3])
+                                    FileStorage().save()
+                    else:
+                        print("** no instance found **")
 
     def do_EOF(self, arg):
         """Quit the program"""
