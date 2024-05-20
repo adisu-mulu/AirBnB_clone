@@ -12,7 +12,7 @@ class TestBaseModel(unittest.TestCase):
     def setUp(self):
         """The method is used to arrange for test cases"""
         self.bs = BaseModel()
-        self.obj = BaseModel()
+        self.obj = BaseModel(id="123")
 
     def test_public_instance_id(self):
         """This method tests the different requirement for the id attribute"""
@@ -53,9 +53,9 @@ class TestBaseModel(unittest.TestCase):
 
     def test_public_insMethod___str__(self):
         """This method test the string rep of the object"""
-        #expected_str = f"[BaseModel] ({self.obj.id}) {{'id': '{self.obj.id}', 'created_at': '{datetime.isoformat(self.obj.created_at)}', 'updated_at': '{datetime.isoformat(self.obj.updated_at)}'}}"
-        exp = self.obj
-        self.assertEqual(self.obj, exp)
+        returned_str = self.obj.__str__()
+        expected = "[BaseModel] (123) {'id': '123'}"
+        self.assertEqual(returned_str, expected)
 
 
 if __name__ == "__main__":
