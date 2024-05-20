@@ -27,7 +27,7 @@ class HBNBCommand(cmd.Cmd):
             HBNBCommand().onecmd(sys.stdin.readline().strip())
 
     def do_quit(self, arg):
-        """Exits the command line interpreter."""
+        """Quit command to exit the program."""
         return True
 
     def do_create(self, arg):
@@ -43,12 +43,21 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
 
     def do_show(self, arg):
-        arg = arg.split()
-        obj_name = arg[0] + '.' + arg[1]
-        if obj_name in FileStorage()._FileStorage__objects:
-            print(FileStorage()._FileStorage__objects[obj_name])
+        if len(arg) < 1:
+            print("** class name missing **")
         else:
-            print("** no instance found **")
+            args = arg.split()
+            if not any(args[0] in mylist for mylist in FileStorage()._FileStorage__objects):
+                print("** class doesn't exist **")
+            else:
+                if len(args) < 2:
+                    print(" ** instance id is missing **")
+                else:
+                    obj_name = args[0] + '.' + args[1]
+                    if obj_name in FileStorage()._FileStorage__objects:
+                        print(FileStorage._FileStorage__objects[obj_name])
+                    else:
+                        print("** no instance found **")
 
     def do_destroy(self, arg):
         arg = arg.split()
