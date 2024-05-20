@@ -51,7 +51,7 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(crt, originalcrt)
         self.assertEqual(upt, originalupt)
 
-    def test_public_insMethod___str__(self):
+    def test_public_insMethod__str__(self):
         """This method test the string rep of the object"""
         returned_str = self.obj.__str__()
         expected = "[BaseModel] (123) {'id': '123'}"
