@@ -31,6 +31,7 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def do_create(self, arg):
+        """This method creates new objects """
         if len(arg) < 1:
             print("** class name missing **")
         else:
@@ -43,11 +44,13 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
 
     def do_show(self, arg):
+        """This method shows an instance given classname and id"""
         if len(arg) < 1:
             print("** class name missing **")
         else:
             args = arg.split()
-            if not any(args[0] in mylist for mylist in FileStorage()._FileStorage__objects):
+            if not any(args[0] in mylist for mylist in
+                       FileStorage()._FileStorage__objects):
                 print("** class doesn't exist **")
             else:
                 if len(args) < 2:
@@ -60,12 +63,27 @@ class HBNBCommand(cmd.Cmd):
                         print("** no instance found **")
 
     def do_destroy(self, arg):
-        arg = arg.split()
-        obj_name = arg[0] + '.' + arg[1]
-        del FileStorage()._FileStorage__objects[obj_name]
-        BaseModel().save()
+        """Destroys an instance given classname and id"""
+        if len(arg) < 1:
+            print("** class name missing **")
+        else:
+            args = arg.split()
+            if not any(args[0] in mylist for mylist in
+                       FileStorage()._FileStorage__objects):
+                print("** class doesn't exist **")
+            else:
+                if len(args) < 2:
+                    print(" ** instance id is missing **")
+                else:
+                    obj_name = args[0] + '.' + args[1]
+                    if obj_name in FileStorage()._FileStorage__objects:
+                        del FileStorage()._FileStorage__objects[obj_name]
+                        FileStorage().save()
+                    else:
+                        print("** no instance found **")
 
     def do_all(self, arg):
+        """List all available instances"""
         if FileStorage()._FileStorage__objects:
             obj_list = []
             for objs in FileStorage()._FileStorage__objects.values():
@@ -75,7 +93,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
 
     def do_EOF(self, arg):
-        """Also exits the command line interpreter"""
+        """Quit the program"""
         return True
 
 
