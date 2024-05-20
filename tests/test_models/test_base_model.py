@@ -12,6 +12,7 @@ class TestBaseModel(unittest.TestCase):
     def setUp(self):
         """The method is used to arrange for test cases"""
         self.bs = BaseModel()
+        self.obj = BaseModel()
 
     def test_public_instance_id(self):
         """This method tests the different requirement for the id attribute"""
@@ -31,7 +32,7 @@ class TestBaseModel(unittest.TestCase):
         self.assertTrue(self.bs.updated_at)
         self.assertIsInstance(self.bs.updated_at, datetime)
 
-    def test_public_instance_save(self):
+    def test_public_insMethod_save(self):
         """This method test the save method"""
         self.assertTrue(self.bs.save)
         self.bs.save()
@@ -49,6 +50,12 @@ class TestBaseModel(unittest.TestCase):
         originalupt = datetime.isoformat(self.bs.__dict__["updated_at"])
         self.assertEqual(crt, originalcrt)
         self.assertEqual(upt, originalupt)
+
+    def test_public_insMethod___str__(self):
+        """This method test the string rep of the object"""
+        #expected_str = f"[BaseModel] ({self.obj.id}) {{'id': '{self.obj.id}', 'created_at': '{datetime.isoformat(self.obj.created_at)}', 'updated_at': '{datetime.isoformat(self.obj.updated_at)}'}}"
+        exp = self.obj
+        self.assertEqual(self.obj, exp)
 
 
 if __name__ == "__main__":
