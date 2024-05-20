@@ -68,8 +68,8 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         else:
             args = arg.split()
-            if not any(args[0] in mylist for mylist in
-                       FileStorage()._FileStorage__objects):
+            if not any(args[0] == mylist.__class__.__name__ for key, mylist in
+                       FileStorage()._FileStorage__objects.items()):
                 print("** class doesn't exist **")
             else:
                 if len(args) < 2:
