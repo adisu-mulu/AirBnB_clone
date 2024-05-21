@@ -42,8 +42,28 @@ class HBNBCommand(cmd.Cmd):
                 bs = BaseModel()
                 bs.save()
                 print(bs.id)
-            if arg[0] == 'User':
+            elif arg[0] == 'User':
                 bs = User()
+                bs.save()
+                print(bs.id)
+            elif arg[0] == 'Place':
+                bs = Place()
+                bs.save()
+                print(bs.id)
+            elif arg[0] == 'State':
+                bs = State()
+                bs.save()
+                print(bs.id)
+            elif arg[0] == 'City':
+                bs = City()
+                bs.save()
+                print(bs.id)
+            elif arg[0] == 'Amenity':
+                bs = Amenity()
+                bs.save()
+                print(bs.id)
+            elif arg[0] == 'Review':
+                bs = Review()
                 bs.save()
                 print(bs.id)
             else:
