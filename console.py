@@ -85,13 +85,25 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, arg):
         """List all available instances"""
-        if FileStorage()._FileStorage__objects:
-            obj_list = []
-            for objs in FileStorage()._FileStorage__objects.values():
-                obj_list.append(str(objs))
-            print(obj_list)
+        if len(arg) == 0:
+            if FileStorage()._FileStorage__objects:
+                obj_list = []
+                for objs in FileStorage()._FileStorage__objects.values():
+                    obj_list.append(str(objs))
+                print(obj_list)
+            else:
+                print("** class doesn't exist **")
         else:
-            print("** class doesn't exist **")
+            args = arg.split()
+            if not any(args[0] == mylist.__class__.__name__ for key, mylist in
+                       FileStorage()._FileStorage__objects.items()):
+                print("** class doesn't exist **")
+            else:
+                objlist = []
+                for key, mylist in FileStorage()._FileStorage__objects.items():
+                    if mylist.__class__.__name__ == args[0]:
+                        objlist.append(str(mylist))
+                print(objlist)
 
     def do_update(self, arg):
         """Updates an instance with new attribute"""
