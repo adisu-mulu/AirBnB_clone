@@ -4,6 +4,7 @@ import cmd
 import sys
 import shlex
 from models.base_model import BaseModel
+from models.user import User
 from models.engine.file_storage import FileStorage
 
 
@@ -39,6 +40,10 @@ class HBNBCommand(cmd.Cmd):
             arg = arg.split()
             if arg[0] == 'BaseModel':
                 bs = BaseModel()
+                bs.save()
+                print(bs.id)
+            if arg[0] == 'User':
+                bs = User()
                 bs.save()
                 print(bs.id)
             else:
