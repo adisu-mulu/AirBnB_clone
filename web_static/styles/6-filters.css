@@ -53,6 +53,7 @@
      top: 70px;
      margin: 0px;
      left: 0px;
+     z-index: 1;
  }
  .amenities .popover{
      width: 25%;
@@ -63,6 +64,7 @@
      top: 70px;
      margin: 0px;
      left: 27%;
+     z-index: 1;
  } 
 ul.popover li{
      list-style: none;
